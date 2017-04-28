@@ -113,41 +113,40 @@ function loadOnce() {
 
     // need to have a check for repeat answers
 
-    // var possibleAnswers = ["r", "g", "b", "c", "y", "m"];
-    // var howManyAnswers = 5;
-    // for (var counter=0;counter<howManyAnswers;counter++){
-    //     console.log(counter);
-    //     var rand0 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
-    //     var rand1 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
-    //     var rand2 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
-    //     var rand3 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
+    var possibleAnswers = ["r", "g", "b", "c", "y", "m"];
+    var howManyAnswers = 5;
+    for (var counter=0;counter<howManyAnswers;counter++){
+        var rand0 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
+        var rand1 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
+        var rand2 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
+        var rand3 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
+
+        var anAnswer = new GuessObj(rand0, rand1, rand2, rand3);
+        theAnswerList.push(anAnswer);
+    }
+    // var rand0 = "r";
+    // var rand1 = "b";
+    // var rand2 = "b";
+    // var rand3 = "m";
     //
-    //     var anAnswer = new GuessObj(rand0, rand1, rand2, rand3);
-    //     theAnswerList.push(anAnswer);
-    // }
-    var rand0 = "r";
-    var rand1 = "b";
-    var rand2 = "b";
-    var rand3 = "m";
-
-    var anAnswer = new GuessObj(rand0, rand1, rand2, rand3);
-    theAnswerList.push(anAnswer);
-
-    var rand0 = "c";
-    var rand1 = "y";
-    var rand2 = "y";
-    var rand3 = "m";
-
-    var anotherAnswer = new GuessObj(rand0, rand1, rand2, rand3);
-    theAnswerList.push(anotherAnswer);
-
-    var rand0 = "b";
-    var rand1 = "b";
-    var rand2 = "b";
-    var rand3 = "m";
-
-    var oneMoreAnswer = new GuessObj(rand0, rand1, rand2, rand3);
-    theAnswerList.push(oneMoreAnswer);
+    // var anAnswer = new GuessObj(rand0, rand1, rand2, rand3);
+    // theAnswerList.push(anAnswer);
+    //
+    // var rand0 = "c";
+    // var rand1 = "y";
+    // var rand2 = "y";
+    // var rand3 = "m";
+    //
+    // var anotherAnswer = new GuessObj(rand0, rand1, rand2, rand3);
+    // theAnswerList.push(anotherAnswer);
+    //
+    // var rand0 = "b";
+    // var rand1 = "b";
+    // var rand2 = "b";
+    // var rand3 = "m";
+    //
+    // var oneMoreAnswer = new GuessObj(rand0, rand1, rand2, rand3);
+    // theAnswerList.push(oneMoreAnswer);
 
 }
 
@@ -267,6 +266,7 @@ function loadData() {
         theAnswerList.forEach(function(eachAnswer){
             if (thisGuess.s0 === eachAnswer.s0 && thisGuess.s1 === eachAnswer.s1 && thisGuess.s2 === eachAnswer.s2 && thisGuess.s3 === eachAnswer.s3){
                 thisGuess.win = true;
+
             }
             else{
                 var makeTheClues = function(){
