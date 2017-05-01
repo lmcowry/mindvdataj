@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Rake</title>
+        <title>MindVData Tutorial 2</title>
         <link rel="stylesheet" href="css/style.css">
 
 
@@ -23,36 +23,23 @@
                     <td id="guessAt1">
                         <input id="guessAt1Input" type="text" size="1" name="guessAt1" value=""/>
                     </td>
-                    <td class="guessBorderColumn">|</td>
-                    <td id="guessAt2">
-                        <input id="guessAt2Input" type="text" size="1" name="guessAt2" value=""/>
-                    </td>
-                    <td class="guessBorderColumn">|</td>
-                    <td id="guessAt3">
-                        <input id="guessAt3Input" type="text" size="1" name="guessAt3" value=""/>
-                    </td>
-
                 </tr>
             </table>
             <div id="errorStatement"></div>
             <button id="submit-btn">Submit</button>
-
-
         </form>
         <br>
-            <p>
-                Possible answers: r g b c y m <br> <br>
-                ! right color, right spot <br> ? right color, wrong spot <br>
-                1st 2 like this <b>&amp;</b> 1st 3 like this <br> <br>
+        <p>
+            Tutorial mode: guessing one code made up of two colors.<br>
+            An answer could be r and b, m and g, or y and y, for example<br>
+            Possible colors: r g b c y m <br> <br>
 
-                Goal: guess all 5 answers<br> <br>
+            You are given clues to help get the answer faster <br>
+            The ! is for right color, right spot<br>
+            The ? is for right color, wrong spot<br> <br>
 
-                Version notes: win counter can be messed up by inputting <br>
-                same win.  Nothing happens when you get all 5 wins.  <br>
-                Need to remove answers from the list so that the count <br>
-                changes (and so you can't guess a win you've already guessed) <br>
-                Lots to add, but works somewhat now.
-            </p>
+            Goal: you're guessing two random colors in a row<br> <br>
+        </p>
 
 
     <script type="text/javascript">
@@ -62,10 +49,8 @@
 
         var textEntry0 = document.getElementById("guessAt0Input");
         var textEntry1 = document.getElementById("guessAt1Input");
-        var textEntry2 = document.getElementById("guessAt2Input");
-        var textEntry3 = document.getElementById("guessAt3Input");
 
-        var textEntries = [textEntry0, textEntry1, textEntry2, textEntry3];
+        var textEntries = [textEntry0, textEntry1];
 
         textEntries.forEach(function(element){
             element.oninput = function() {
@@ -99,6 +84,6 @@
     }
     </script>
     <script src="js/libs/jquery.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script2.js"></script>
     </body>
 </html>
