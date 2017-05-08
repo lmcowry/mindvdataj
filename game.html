@@ -1,45 +1,33 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>MindVData</title>
-        <link rel="stylesheet" href="css/style.css">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>MindVData</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     </head>
     <body>
-        <div id="winStatement"></div>
-        <table class="eachOldGuess">
-        </table>
+        <div class="container main-content">
+            <div id="winStatement"></div>
+            <div class="eachOldGuess">
+            </div>
 
-        <br>
-        <form id="guessSubmit">
+            <br>
+            <form class="form-inline" id="guessSubmit">
 
-            <table>
-                <tr>
-                    <td id="guessAt0" >
-                        <input id="guessAt0Input" type="text" size="1" name="guessAt0" value=""/>
-                    </td>
-                    <td class="guessBorderColumn">|</td>
-                    <td id="guessAt1">
-                        <input id="guessAt1Input" type="text" size="1" name="guessAt1" value=""/>
-                    </td>
-                    <td class="guessBorderColumn">|</td>
-                    <td id="guessAt2">
-                        <input id="guessAt2Input" type="text" size="1" name="guessAt2" value=""/>
-                    </td>
-                    <td class="guessBorderColumn">|</td>
-                    <td id="guessAt3">
-                        <input id="guessAt3Input" type="text" size="1" name="guessAt3" value=""/>
-                    </td>
+                    <input id="guessAt0Input" class="form-control" type="text" size="1" value=""/>
+                    <input id="guessAt1Input" class="form-control" type="text" size="1" value=""/>
+                    <input id="guessAt2Input" class="form-control" type="text" size="1" value=""/>
+                    <input id="guessAt3Input" class="form-control" type="text" size="1" value=""/>
+                    <button id="submit-btn" class="btn">Submit</button>
 
-                </tr>
-            </table>
-            <div id="errorStatement"></div>
-            <button id="submit-btn">Submit</button>
+                <div id="errorStatement"></div>
+            </form>
 
-
-        </form>
-        <br>
             <p>
                 Possible answers: r g b c y m <br> <br>
                 ! right color, right spot <br> ? right color, wrong spot <br>
@@ -49,51 +37,51 @@
 
             </p>
 
-
+        </div>
     <script type="text/javascript">
 
-    window.onload = function() {
+        window.onload = function() {
 
 
-        var textEntry0 = document.getElementById("guessAt0Input");
-        var textEntry1 = document.getElementById("guessAt1Input");
-        var textEntry2 = document.getElementById("guessAt2Input");
-        var textEntry3 = document.getElementById("guessAt3Input");
+            var textEntry0 = document.getElementById("guessAt0Input");
+            var textEntry1 = document.getElementById("guessAt1Input");
+            var textEntry2 = document.getElementById("guessAt2Input");
+            var textEntry3 = document.getElementById("guessAt3Input");
 
-        var textEntries = [textEntry0, textEntry1, textEntry2, textEntry3];
+            var textEntries = [textEntry0, textEntry1, textEntry2, textEntry3];
 
-        textEntries.forEach(function(element){
-            element.oninput = function() {
+            textEntries.forEach(function(element){
+                element.oninput = function() {
 
-                switch(element.value) {
-                    case "r":
-                        element.style.backgroundColor = "red";
-                        break;
-                    case "g":
-                        element.style.backgroundColor = "green";
-                        break;
-                    case "b":
-                        element.style.backgroundColor = "blue";
-                        break;
-                    case "c":
-                        element.style.backgroundColor = "cyan";
-                        break;
-                    case "y":
-                        element.style.backgroundColor = "yellow";
-                        break;
-                    case "m":
-                        element.style.backgroundColor = "magenta";
-                        break;
-                    default:
-                        element.style.backgroundColor = "";
-                }
+                    switch(element.value) {
+                        case "r":
+                            element.style.backgroundColor = "red";
+                            break;
+                        case "g":
+                            element.style.backgroundColor = "green";
+                            break;
+                        case "b":
+                            element.style.backgroundColor = "blue";
+                            break;
+                        case "c":
+                            element.style.backgroundColor = "cyan";
+                            break;
+                        case "y":
+                            element.style.backgroundColor = "yellow";
+                            break;
+                        case "m":
+                            element.style.backgroundColor = "magenta";
+                            break;
+                        default:
+                            element.style.backgroundColor = "";
+                    }
 
-            };
-        });
+                };
+            });
 
-    }
+        }
     </script>
-    <script src="js/libs/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/scriptGame.js"></script>
     </body>
 </html>

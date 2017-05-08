@@ -321,14 +321,14 @@ function loadData() {
 
         // this creates a row for each guess in the list of old guesses and adds the inline css style for the color
         for (var counter = 0; counter < listOfOldGuesses.length; counter++){
-            $('.eachOldGuess').append("<tr " + "id= guess" + counter + ">");
+            $('.eachOldGuess').append("<div " + "id= guess" + counter + ">");
 
-            $('#guess' + counter).append("<td style=" + listOfOldGuesses[counter].css0 + ">" + listOfOldGuesses[counter].s0 + "</td>");
-            $('#guess' + counter).append("<td style=" + listOfOldGuesses[counter].css1 + ">" + listOfOldGuesses[counter].s1 + "</td>");
-            $('#guess' + counter).append("<td style=" + listOfOldGuesses[counter].css2 + ">" + listOfOldGuesses[counter].s2 + "</td>");
-            $('#guess' + counter).append("<td style=" + listOfOldGuesses[counter].css3 + ">" + listOfOldGuesses[counter].s3 + "</td>");
+            $('#guess' + counter).append("<span style=" + listOfOldGuesses[counter].css0 + ">" + listOfOldGuesses[counter].s0 + "</span>");
+            $('#guess' + counter).append("<span style=" + listOfOldGuesses[counter].css1 + ">" + listOfOldGuesses[counter].s1 + "</span>");
+            $('#guess' + counter).append("<span style=" + listOfOldGuesses[counter].css2 + ">" + listOfOldGuesses[counter].s2 + "</span>");
+            $('#guess' + counter).append("<span style=" + listOfOldGuesses[counter].css3 + ">" + listOfOldGuesses[counter].s3 + "</span>");
 
-            $('.eachOldGuess').append("</tr>");
+            $('.eachOldGuess').append("</div>");
         }
 
 
@@ -336,14 +336,14 @@ function loadData() {
         // this adds the clue information to the row.  could easily be in the previous for loop, but tidied it up
         for (var counter = 0; counter < listOfOldGuesses.length; counter++){
             //check if it's a win guess or not.  if it is, print Win in place of the clues; if it isn't, print the regular clue
-            $('#guess' + counter).append("<td>" + listOfOldGuesses[counter].cs0 + "</td>");
-            $('#guess' + counter).append("<td>" + listOfOldGuesses[counter].cs1 + "</td>");
-            $('#guess' + counter).append("<td>" + listOfOldGuesses[counter].cs2 + "</td>");
-            $('#guess' + counter).append("<td>" + listOfOldGuesses[counter].cs3 + "</td>");
+            $('#guess' + counter).append("<span>" + listOfOldGuesses[counter].cs0 + "</span>");
+            $('#guess' + counter).append("<span>" + listOfOldGuesses[counter].cs1 + "</span>");
+            $('#guess' + counter).append("<span>" + listOfOldGuesses[counter].cs2 + "</span>");
+            $('#guess' + counter).append("<span>" + listOfOldGuesses[counter].cs3 + "</span>");
 
-            $('#guess' + counter).append("<td style= padding-left:1em>" + listOfOldGuesses[counter].cf2 + "&amp;" + listOfOldGuesses[counter].cf3 + "</td>");
+            $('#guess' + counter).append("<span style= padding-left:1em>" + listOfOldGuesses[counter].cf2 + "&amp;" + listOfOldGuesses[counter].cf3 + "</span>");
             if (listOfOldGuesses[counter].win === true){
-                $('#guess' + counter).append("<td style= padding-left:1em>" + "You've solved this code! Keep going to get them all" + "</td>");
+                $('#guess' + counter).append("<span style= padding-left:1em>" + "You've solved this code! Keep going to get them all" + "</span>");
                 // this checks if all the answers have been guessed
                 if (wonItAll === true){
                     $('#winStatement').text("");
