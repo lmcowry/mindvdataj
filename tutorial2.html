@@ -1,89 +1,50 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>MindVData Tutorial 2</title>
-        <link rel="stylesheet" href="css/style.css">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>MindVData Tutorial 2</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
 
 
     </head>
     <body>
-        <div id="winStatement"></div>
-        <table class="eachOldGuess">
-        </table>
+        <div class="container main-content">
+            <div id="winStatement"></div>
+            <div class="eachOldGuess">
+            </div>
 
-        <br>
-        <form id="guessSubmit">
+            <br>
+            <form id="guessSubmit">
 
-            <table>
-                <tr>
-                    <td id="guessAt0" >
-                        <input id="guessAt0Input" type="text" size="1" name="guessAt0" value=""/>
-                    </td>
-                    <td class="guessBorderColumn">|</td>
-                    <td id="guessAt1">
-                        <input id="guessAt1Input" type="text" size="1" name="guessAt1" value=""/>
-                    </td>
-                </tr>
-            </table>
-            <div id="errorStatement"></div>
-            <button id="submit-btn">Submit</button>
-        </form>
-        <br>
-        <p>
-            Tutorial mode: guessing one code made up of two colors.<br>
-            An answer could be r and b, m and g, or y and y, for example<br>
-            Possible colors: r g b c y m <br> <br>
+                    <input id="guessAt0Input" class="col-xs-1" type="text" size="1" value=""/>
+                    <input id="guessAt1Input" class="col-xs-1" type="text" size="1" value=""/>
+                    <button id="submit-btn" class="btn">Submit</button>
 
-            You are given clues to help get the answer faster <br>
-            The ! is for right color, right spot<br>
-            The ? is for right color, wrong spot<br> <br>
+                <div id="errorStatement"></div>
+            </form>
+            <br>
+            <p>
+                Tutorial mode: guessing one code made up of two colors.<br>
+                An answer could be r and b, m and g, or y and y, for example<br>
+                Possible colors: r g b c y m <br> <br>
 
-            Goal: you're guessing two random colors in a row<br> <br>
-        </p>
+                You are given clues to help get the answer faster <br>
+                The ! is for right color, right spot<br>
+                The ? is for right color, wrong spot<br> <br>
 
+                Goal: you're guessing two random colors in a row<br> <br>
+                <a href="game.html">Click here to skip to the game</a><br>
+            </p>
 
-    <script type="text/javascript">
+        </div> <!--CONTAINER DIV FOR MAIN CONTENT -->
 
-    window.onload = function() {
-
-
-        var textEntry0 = document.getElementById("guessAt0Input");
-        var textEntry1 = document.getElementById("guessAt1Input");
-
-        var textEntries = [textEntry0, textEntry1];
-
-        textEntries.forEach(function(element){
-            element.oninput = function() {
-
-                switch(element.value) {
-                    case "r":
-                        element.style.backgroundColor = "red";
-                        break;
-                    case "g":
-                        element.style.backgroundColor = "green";
-                        break;
-                    case "b":
-                        element.style.backgroundColor = "blue";
-                        break;
-                    case "c":
-                        element.style.backgroundColor = "cyan";
-                        break;
-                    case "y":
-                        element.style.backgroundColor = "yellow";
-                        break;
-                    case "m":
-                        element.style.backgroundColor = "magenta";
-                        break;
-                    default:
-                        element.style.backgroundColor = "";
-                }
-
-            };
-        });
-
-    }
-    </script>
-    <script src="js/libs/jquery.min.js"></script>
-    <script src="js/script2.js"></script>
+    <script type="text/javascript" src="js/inputColorer.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/tutorial2.js"></script>
     </body>
 </html>

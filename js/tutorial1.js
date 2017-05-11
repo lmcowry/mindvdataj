@@ -54,7 +54,7 @@ function loadOnce() {
 }
 
 function loadData() {
-    var g0 = $('#guessAt0Input').val();
+    var g0 = $('#guessAt0Input').val().toLowerCase();
 
 
 

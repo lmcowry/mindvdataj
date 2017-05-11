@@ -1,5 +1,5 @@
 class GuessObj {
-    constructor(s0, s1){
+    constructor(s0, s1, s2, s3){
         this.s0 = s0;
         this.s1 = s1;
 
@@ -69,7 +69,7 @@ function loadOnce() {
     // need to have a check for repeat answers
 
     var possibleAnswers = ["r", "g", "b", "c", "y", "m"];
-    var howManyAnswers = 3;
+    var howManyAnswers = 1;
     for (var counter=0;counter<howManyAnswers;counter++){
         if (theAnswerList.length == 0){
             var rand0 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
@@ -81,7 +81,7 @@ function loadOnce() {
         else{
             // checks if theAnswerList has added an answer for this iteration
             // guarantees that all the answers in the list are different
-            while(theAnswerList.length <= counter){
+            while(theAnswerList.length < counter){
                 var rand0 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
                 var rand1 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
                 var isItUnique = true;
@@ -104,8 +104,8 @@ function loadOnce() {
 }
 
 function loadData() {
-    var g0 = $('#guessAt0Input').val();
-    var g1 = $('#guessAt1Input').val();
+    var g0 = $('#guessAt0Input').val().toLowerCase();
+    var g1 = $('#guessAt1Input').val().toLowerCase();
 
     var possibleAnswers = ["r", "g", "b", "c", "y", "m"];
     var guesses = [g0, g1];
@@ -129,17 +129,6 @@ function loadData() {
         var thisGuess = new GuessObj(g0, g1);
         listOfOldGuesses.push(thisGuess);
 
-        // gets rid of the solved answers
-        var whichAnswerSolved = null;
-        for (var counter = 0; counter < theAnswerList.length; counter++){
-            if (theAnswerList[counter].win === true){
-                whichAnswerSolved = counter;
-            }
-        }
-        if (whichAnswerSolved !== null){
-            theAnswerList.splice(whichAnswerSolved, 1);
-        }
-
         // counts the colors in the answers
         var answerColorCounterObject = {
             "r": 0,
@@ -153,41 +142,37 @@ function loadData() {
         var answerColorCounter = function(){
             theAnswerList.forEach(function(eachAnswer){
                 answerColorCounterObject[eachAnswer.s0]++;
+                console.log("hi")
                 answerColorCounterObject[eachAnswer.s1]++;
             })
         };
 
         answerColorCounter();
 
-        var exclaCounterS0 = 0;
-        var exclaCounterS1 = 0;
-
-
         // gives a ! for right color right spot, ? for right color wrong spot, and X for wrong color wrong spot
         // uses the answerColorCounter
         var clueGiver = function(){
             theAnswerList.forEach(function(eachAnswer){
                 if (thisGuess.s0 === eachAnswer.s0){
-                    exclaCounterS0++;
+                    thisGuess.cs0 = "!";
+                }
+                else if (answerColorCounterObject[thisGuess.s0] > 0){
+                    thisGuess.cs0 = "?";
+                }
+                else{
+                    thisGuess.cs0 = "X"
                 }
 
                 if (thisGuess.s1 === eachAnswer.s1){
-                    exclaCounterS1++;
+                    thisGuess.cs1 = "!";
                 }
-
-            });
-            if (exclaCounterS0 > 0){
-                thisGuess.cs0 = `${exclaCounterS0}!`;
-            }
-            else{
-                thisGuess.cs0 = `${answerColorCounterObject[thisGuess.s0]}?`;
-            }
-            if (exclaCounterS1 > 0){
-                thisGuess.cs1 = `${exclaCounterS1}!`;
-            }
-            else{
-                thisGuess.cs1 = `${answerColorCounterObject[thisGuess.s1]}?`;
-            }
+                else if (answerColorCounterObject[thisGuess.s1] > 0){
+                    thisGuess.cs1 = "?";
+                }
+                else{
+                    thisGuess.cs1 = "X"
+                }
+            })
         }
 
         clueGiver();
@@ -198,31 +183,11 @@ function loadData() {
             theAnswerList.forEach(function(eachAnswer){
                 if (thisGuess.s0 === eachAnswer.s0 && thisGuess.s1 === eachAnswer.s1){
                     thisGuess.win = true;
-                    eachAnswer.win = true;
-
                 }
             });
         };
 
         isItAWinner();
-
-        function didThey(){
-            var sureDid = true;
-            theAnswerList.forEach(function(eachAnswer){
-                if (eachAnswer.win === false){
-                    sureDid = false;
-                }
-            });
-            if (sureDid === true){
-                return true;
-            }
-            return false;
-        }
-
-        var wonItAll = didThey();
-
-
-
 
 
         $('.eachOldGuess').text("");
@@ -242,12 +207,7 @@ function loadData() {
         for (var counter = 0; counter < listOfOldGuesses.length; counter++){
             //check if it's a win guess or not.  if it is, print Win in place of the clues; if it isn't, print the regular clue
             if (listOfOldGuesses[counter].win === true){
-                $('#guess' + counter).append("You've solved this code! Keep going to get them all");
-                // this checks if all the answers have been guessed
-                if (wonItAll === true){
-                    $('#winStatement').text("");
-                    $('#winStatement').append("YOU'VE WON IT ALL! Click <a href='tutorial3.html'>here</a> for Part 3 of the tutorial");
-                }
+                $('#guess' + counter).append("Winner!  Click <a href='tutorial2part2.html'>here</a> for Part 2.5 of the tutorial");
             }
             else{
                 $('#guess' + counter).append("|" + listOfOldGuesses[counter].cs0);

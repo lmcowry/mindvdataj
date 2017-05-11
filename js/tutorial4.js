@@ -154,10 +154,10 @@ function loadOnce() {
 }
 
 function loadData() {
-    var g0 = $('#guessAt0Input').val();
-    var g1 = $('#guessAt1Input').val();
-    var g2 = $('#guessAt2Input').val();
-    var g3 = $('#guessAt3Input').val();
+    var g0 = $('#guessAt0Input').val().toLowerCase();
+    var g1 = $('#guessAt1Input').val().toLowerCase();
+    var g2 = $('#guessAt2Input').val().toLowerCase();
+    var g3 = $('#guessAt3Input').val().toLowerCase();
 
     var possibleAnswers = ["r", "g", "b", "c", "y", "m"];
     var guesses = [g0, g1, g2, g3];

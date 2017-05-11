@@ -1,20 +1,25 @@
 class GuessObj {
-    constructor(s0, s1, s2){
+    constructor(s0, s1, s2, s3){
         this.s0 = s0;
         this.s1 = s1;
         this.s2 = s2;
+        this.s3 = s3;
 
         this.css0;
         this.css1;
         this.css2;
+        this.css3;
 
         this.cs0;
         this.cs1;
         this.cs2;
+        this.cs3;
 
-        this.cf2;
+        this.cf2 = 0;
+        this.cf3 = 0;
 
         this.win = false;
+
 
         if (this.s0 === 'r'){
             this.css0 = "background:red";
@@ -75,11 +80,26 @@ class GuessObj {
             this.css2 = "background:magenta";
         }
 
-
-
+        if (this.s3 === "r"){
+            this.css3 = "background:red";
+        }
+        else if (this.s3 === "g"){
+            this.css3 = "background:green";
+        }
+        else if (this.s3 === "b"){
+            this.css3 = "background:blue";
+        }
+        else if (this.s3 === "c"){
+            this.css3 = "background:cyan";
+        }
+        else if (this.s3 === "y"){
+            this.css3 = "background:yellow";
+        }
+        else if (this.s3 === "m"){
+            this.css3 = "background:magenta";
+        }
     }
 }
-
 var listOfOldGuesses = [];
 var theAnswerList = [];
 
@@ -94,14 +114,15 @@ function loadOnce() {
     // need to have a check for repeat answers
 
     var possibleAnswers = ["r", "g", "b", "c", "y", "m"];
-    var howManyAnswers = 3;
+    var howManyAnswers = 5;
     for (var counter=0;counter<howManyAnswers;counter++){
         if (theAnswerList.length == 0){
             var rand0 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
             var rand1 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
             var rand2 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
+            var rand3 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
 
-            var anAnswer = new GuessObj(rand0, rand1, rand2);
+            var anAnswer = new GuessObj(rand0, rand1, rand2, rand3);
             theAnswerList.push(anAnswer);
         }
         else{
@@ -111,17 +132,17 @@ function loadOnce() {
                 var rand0 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
                 var rand1 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
                 var rand2 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
-
+                var rand3 = possibleAnswers[Math.floor(Math.random() * possibleAnswers.length)];
                 var isItUnique = true;
 
                 // changes isItUnique to false if an answer is found that would be the same
                 theAnswerList.forEach(function(eachAnswer){
-                    if (rand0 === eachAnswer.s0 && rand1 === eachAnswer.s1 && rand2 === eachAnswer.s2){
+                    if (rand0 === eachAnswer.s0 && rand1 === eachAnswer.s1 && rand2 === eachAnswer.s2 && rand3 === eachAnswer.s3){
                         isItUnique = false;
                     }
                 });
                 if (isItUnique){
-                    var anAnswer = new GuessObj(rand0, rand1, rand2);
+                    var anAnswer = new GuessObj(rand0, rand1, rand2, rand3);
                     theAnswerList.push(anAnswer);
                 }
             }
@@ -129,15 +150,19 @@ function loadOnce() {
 
     }
 
+
 }
 
 function loadData() {
-    var g0 = $('#guessAt0Input').val();
-    var g1 = $('#guessAt1Input').val();
-    var g2 = $('#guessAt2Input').val();
+    var g0 = $('#guessAt0Input').val().toLowerCase();
+    var g1 = $('#guessAt1Input').val().toLowerCase();
+    var g2 = $('#guessAt2Input').val().toLowerCase();
+    var g3 = $('#guessAt3Input').val().toLowerCase();
+
+
 
     var possibleAnswers = ["r", "g", "b", "c", "y", "m"];
-    var guesses = [g0, g1, g2];
+    var guesses = [g0, g1, g2, g3];
 
     var pattern = new RegExp(/^([rgbcym]$)/);
     var matches = true;
@@ -153,9 +178,10 @@ function loadData() {
         }
     });
 
+    //
     if (matches === true){
 
-        var thisGuess = new GuessObj(g0, g1, g2);
+        var thisGuess = new GuessObj(g0, g1, g2, g3);
         listOfOldGuesses.push(thisGuess);
 
         // gets rid of the solved answers
@@ -184,6 +210,8 @@ function loadData() {
                 answerColorCounterObject[eachAnswer.s0]++;
                 answerColorCounterObject[eachAnswer.s1]++;
                 answerColorCounterObject[eachAnswer.s2]++;
+                answerColorCounterObject[eachAnswer.s3]++;
+
             })
         };
 
@@ -192,6 +220,7 @@ function loadData() {
         var exclaCounterS0 = 0;
         var exclaCounterS1 = 0;
         var exclaCounterS2 = 0;
+        var exclaCounterS3 = 0;
 
         // gives a ! for right color right spot, ? for right color wrong spot, and X for wrong color wrong spot
         // uses the answerColorCounter
@@ -207,6 +236,10 @@ function loadData() {
 
                 if (thisGuess.s2 === eachAnswer.s2){
                     exclaCounterS2 += 1;
+                }
+
+                if (thisGuess.s3 === eachAnswer.s3){
+                    exclaCounterS3 += 1;
                 }
             });
 
@@ -229,6 +262,12 @@ function loadData() {
             else{
                 thisGuess.cs2 = `${answerColorCounterObject[thisGuess.s2]}?`;
             }
+            if (exclaCounterS3 > 0){
+                thisGuess.cs3 = `${exclaCounterS3}!`;
+            }
+            else{
+                thisGuess.cs3 = `${answerColorCounterObject[thisGuess.s3]}?`;
+            }
 
         };
 
@@ -243,10 +282,18 @@ function loadData() {
         });
         thisGuess.cf2 = firstTwo;
 
+        var firstThree = 0;
+        theAnswerList.forEach(function(eachAnswer){
+            if (thisGuess.s0 === eachAnswer.s0 && thisGuess.s1 === eachAnswer.s1 && thisGuess.s2 === eachAnswer.s2){
+                firstThree++;
+            }
+        });
+        thisGuess.cf3 = firstThree;
+
         //checks if theGuess is an answer
         var isItAWinner = function(){
             theAnswerList.forEach(function(eachAnswer){
-                if (thisGuess.s0 === eachAnswer.s0 && thisGuess.s1 === eachAnswer.s1 && thisGuess.s2 === eachAnswer.s2){
+                if (thisGuess.s0 === eachAnswer.s0 && thisGuess.s1 === eachAnswer.s1 && thisGuess.s2 === eachAnswer.s2 && thisGuess.s3 === eachAnswer.s3){
                     thisGuess.win = true;
                     eachAnswer.win = true;
 
@@ -272,38 +319,37 @@ function loadData() {
 
         var wonItAll = areAllAnswersGuessed();
 
-
-
-
-
         $('.eachOldGuess').text("");
 
         // this creates a row for each guess in the list of old guesses and adds the inline css style for the color
         for (var counter = 0; counter < listOfOldGuesses.length; counter++){
-            $('.eachOldGuess').append("<tr " + "id= guess" + counter + ">");
+            $('.eachOldGuess').append("<div " + "id= guess" + counter + ">");
 
-            $('#guess' + counter).append("<td style=" + listOfOldGuesses[counter].css0 + ">" + listOfOldGuesses[counter].s0 + "</td>");
-            $('#guess' + counter).append("<td style=" + listOfOldGuesses[counter].css1 + ">" + listOfOldGuesses[counter].s1 + "</td>");
-            $('#guess' + counter).append("<td style=" + listOfOldGuesses[counter].css2 + ">" + listOfOldGuesses[counter].s2 + "</td>");
+            $('#guess' + counter).append("<span style=" + listOfOldGuesses[counter].css0 + ">" + listOfOldGuesses[counter].s0 + "</span>");
+            $('#guess' + counter).append("<span style=" + listOfOldGuesses[counter].css1 + ">" + listOfOldGuesses[counter].s1 + "</span>");
+            $('#guess' + counter).append("<span style=" + listOfOldGuesses[counter].css2 + ">" + listOfOldGuesses[counter].s2 + "</span>");
+            $('#guess' + counter).append("<span style=" + listOfOldGuesses[counter].css3 + ">" + listOfOldGuesses[counter].s3 + "</span>");
 
-            $('.eachOldGuess').append("</tr>");
+            $('.eachOldGuess').append("</div>");
         }
 
 
+        var winCount = 1;
         // this adds the clue information to the row.  could easily be in the previous for loop, but tidied it up
         for (var counter = 0; counter < listOfOldGuesses.length; counter++){
             //check if it's a win guess or not.  if it is, print Win in place of the clues; if it isn't, print the regular clue
-            $('#guess' + counter).append("<td>" + listOfOldGuesses[counter].cs0 + "</td>");
-            $('#guess' + counter).append("<td>" + listOfOldGuesses[counter].cs1 + "</td>");
-            $('#guess' + counter).append("<td>" + listOfOldGuesses[counter].cs2 + "</td>");
+            $('#guess' + counter).append("<span>" + listOfOldGuesses[counter].cs0 + "</span>");
+            $('#guess' + counter).append("<span>" + listOfOldGuesses[counter].cs1 + "</span>");
+            $('#guess' + counter).append("<span>" + listOfOldGuesses[counter].cs2 + "</span>");
+            $('#guess' + counter).append("<span>" + listOfOldGuesses[counter].cs3 + "</span>");
 
-            $('#guess' + counter).append("<td style= padding-left:1em>" + listOfOldGuesses[counter].cf2) + "</td>";
+            $('#guess' + counter).append("<span style= padding-left:1em>" + listOfOldGuesses[counter].cf2 + "&amp;" + listOfOldGuesses[counter].cf3 + "</span>");
             if (listOfOldGuesses[counter].win === true){
-                $('#guess' + counter).append("<td style= padding-left:1em>" + "You've solved this code! Keep going to get them all" + "</td>");
+                $('#guess' + counter).append("<span style= padding-left:1em>" + "You've solved this code! Keep going to get them all" + "</span>");
                 // this checks if all the answers have been guessed
                 if (wonItAll === true){
                     $('#winStatement').text("");
-                    $('#winStatement').append("YOU'VE WON IT ALL! Click <a href='tutorial4.html'>here</a> for Part 4 of the tutorial");
+                    $('#winStatement').append("YOU'VE WON IT ALL!");
                 }
             }
 
